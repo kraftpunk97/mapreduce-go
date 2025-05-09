@@ -1,0 +1,28 @@
+name: ci-tests
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - cmd/**
+      - pkg/**
+  pull_request:
+    branches:
+      - main
+    paths:
+      - cmd/**
+      - pkg/**
+
+jobs:
+  test-mapreduce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd cmd/mr/scripts && bash test-mr-many.sh 5
+  
+  test-labrpc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd pkg/labrpc && go test
