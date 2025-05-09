@@ -19,10 +19,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: cd cmd/mr/scripts && bash test-mr-many.sh 5
-  
-  test-labrpc:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: cd pkg/labrpc && go test
+      - run: cd cmd/scripts && bash test-mr-many.sh 5
