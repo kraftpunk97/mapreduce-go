@@ -34,13 +34,13 @@ failed_any=0
 # first word-count
 
 # generate the correct output
-../../sequential/mrsequential ../../apps/wc/wc.so ../../../../datasets/project-gutenberg/pg*txt || exit 1
+../../sequential/mrsequential ../../apps/wc/wc.so ../../../datasets/project-gutenberg/pg*txt || exit 1
 sort mr-out-0 > mr-correct-wc.txt
 rm -f mr-out*
 
 echo '***' Starting wc test.
 
-timeout -k 2s 180s ../../coordinator/mrcoordinator ../../../../datasets/project-gutenberg/pg*txt &
+timeout -k 2s 180s ../../coordinator/mrcoordinator ../../../datasets/project-gutenberg/pg*txt &
 pid=$!
 
 # give the coordinator time to create the sockets.
@@ -74,13 +74,13 @@ wait
 rm -f mr-*
 
 # generate the correct output
-../../sequential/mrsequential ../../apps/indexer/indexer.so ../../../../datasets/project-gutenberg/pg*txt || exit 1
+../../sequential/mrsequential ../../apps/indexer/indexer.so ../../../datasets/project-gutenberg/pg*txt || exit 1
 sort mr-out-0 > mr-correct-indexer.txt
 rm -f mr-out*
 
 echo '***' Starting indexer test.
 
-timeout -k 2s 180s ../../coordinator/mrcoordinator ../../../../datasets/project-gutenberg/pg*txt &
+timeout -k 2s 180s ../../coordinator/mrcoordinator ../../../datasets/project-gutenberg/pg*txt &
 sleep 1
 
 # start multiple workers
@@ -104,7 +104,7 @@ echo '***' Starting map parallelism test.
 
 rm -f mr-*
 
-timeout -k 2s 180s ../../coordinator/mrcoordinator ../../../../datasets/project-gutenberg/pg*txt &
+timeout -k 2s 180s ../../coordinator/mrcoordinator ../../../datasets/project-gutenberg/pg*txt &
 sleep 1
 
 timeout -k 2s 180s ../../worker/mrworker ../../apps/mtiming/mtiming.so &
@@ -135,7 +135,7 @@ echo '***' Starting reduce parallelism test.
 
 rm -f mr-*
 
-timeout -k 2s 180s ../../coordinator/mrcoordinator ../../../../datasets/project-gutenberg/pg*txt &
+timeout -k 2s 180s ../../coordinator/mrcoordinator ../../../datasets/project-gutenberg/pg*txt &
 sleep 1
 
 timeout -k 2s 180s ../../worker/mrworker ../../apps/rtiming/rtiming.so &
@@ -158,7 +158,7 @@ echo '***' Starting job count test.
 
 rm -f mr-*
 
-timeout -k 2s 180s ../../coordinator/mrcoordinator ../../../../datasets/project-gutenberg/pg*txt &
+timeout -k 2s 180s ../../coordinator/mrcoordinator ../../../datasets/project-gutenberg/pg*txt &
 sleep 1
 
 timeout -k 2s 180s ../../worker/mrworker ../../apps/jobcount/jobcount.so &
@@ -185,7 +185,7 @@ rm -f mr-*
 
 echo '***' Starting early exit test.
 
-timeout -k 2s 180s ../../coordinator/mrcoordinator ../../../../datasets/project-gutenberg/pg*txt &
+timeout -k 2s 180s ../../coordinator/mrcoordinator ../../../datasets/project-gutenberg/pg*txt &
 
 # give the coordinator time to create the sockets.
 sleep 1
@@ -234,12 +234,12 @@ rm -f mr-*
 echo '***' Starting crash test.
 
 # generate the correct output
-../../sequential/mrsequential ../../apps/nocrash/nocrash.so ../../../../datasets/project-gutenberg/pg*txt || exit 1
+../../sequential/mrsequential ../../apps/nocrash/nocrash.so ../../../datasets/project-gutenberg/pg*txt || exit 1
 sort mr-out-0 > mr-correct-crash.txt
 rm -f mr-out*
 
 rm -f mr-done
-(timeout -k 2s 180s ../../coordinator/mrcoordinator ../../../../datasets/project-gutenberg/pg*txt ; touch mr-done ) &
+(timeout -k 2s 180s ../../coordinator/mrcoordinator ../../../datasets/project-gutenberg/pg*txt ; touch mr-done ) &
 sleep 1
 
 # start multiple workers
